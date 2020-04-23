@@ -1,34 +1,26 @@
 import React, { useCallback } from "react";
 import {
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend
 } from "recharts";
-import { getRandomColor } from "../services/getRandomColor";
+import { getRandomColor } from "../services/functions/getRandomColor";
 
 const Chart = ({ data }) => {
   const createLines = useCallback(
     () =>
       Object.keys(data[0])
-        .filter(item => item !== "time")
-        .map(item => (
-          <Line
-            key={item}
-            type="monotone"
-            dataKey={item}
-            stroke={getRandomColor()}
-            activeDot={{ r: 8 }}
-          />
-        )),
+        .filter(item => item !== "date")
+        .map(item => <Bar key={item} dataKey={item} fill={getRandomColor()} />),
     [data]
   );
 
   return (
-    <LineChart
+    <BarChart
       width={1000}
       height={500}
       data={data}
@@ -37,12 +29,13 @@ const Chart = ({ data }) => {
       }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="time" />
-      <YAxis />
+      <XAxis dataKey="date" />
+      <YAxis domain={["auto", "auto"]} />
       <Tooltip />
       <Legend />
       {createLines()}
-    </LineChart>
+    </BarChart>
   );
 };
+
 export default Chart;

@@ -17,9 +17,7 @@ const TabsWrapper = ({ tabs, setTab, active }) => {
             swipeable: false
           }}
           title={title}
-        >
-          {title}
-        </Tab>
+        />
       )),
     [tabs, active]
   );

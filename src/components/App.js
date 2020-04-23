@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Chart from "./Chart";
 import Tabs from "./Tabs";
 import Loader from "./Loader";
-import { tabs } from "../utils/data";
-import { getCharts } from "../services/getCharts";
+import { tabs } from "./Tabs/utils";
+import { getCharts } from "../services/api/getCharts";
 
 function App() {
   const [active, setTab] = useState(tabs[0].title);
@@ -14,7 +14,8 @@ function App() {
   useEffect(() => {
     setCharts(null);
     const timestamp = tabs.find(({ title }) => title === active).time;
-    getCharts(timestamp).then(results => setCharts(results));
+
+    getCharts(timestamp, setCharts);
   }, [active]);
 
   return (
