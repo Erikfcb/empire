@@ -1,27 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 
 import Chart from "./Chart";
 import Tabs from "./Tabs";
 import Loader from "./Loader";
 import { tabs } from "./Tabs/utils";
-import { getCharts } from "../services/api/getCharts";
+import { getCharts } from "../services/api";
 
 function App() {
   const [active, setTab] = useState(tabs[0].title);
-  const [charts, setCharts] = useState(null);
+  const [charts, setCharts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const timestamp = useMemo(
+    () => tabs.find(({ title }) => title === active).time,
+    [active]
+  );
 
   useEffect(() => {
-    setCharts(null);
-    const timestamp = tabs.find(({ title }) => title === active).time;
+    setLoading(true);
 
-    getCharts(timestamp, setCharts);
-  }, [active]);
+    getCharts(timestamp)
+      .then(setCharts)
+      .finally(() => setLoading(false));
+  }, [timestamp]);
 
   return (
     <Wrapper>
       <Tabs tabs={tabs} setTab={setTab} active={active} />
-      {charts ? <Chart data={charts} /> : <Loader />}
+      {loading ? <Loader /> : <Chart data={charts} />}
     </Wrapper>
   );
 }

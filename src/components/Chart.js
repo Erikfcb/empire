@@ -10,7 +10,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-import { getRandomColor } from "../services/functions/getRandomColor";
+import { getRandomColor } from "../utils";
 
 const Chart = ({ data }) => {
   const createLines = useCallback(
