@@ -6,8 +6,10 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
+
 import { getRandomColor } from "../services/functions/getRandomColor";
 
 const Chart = ({ data }) => {
@@ -20,21 +22,21 @@ const Chart = ({ data }) => {
   );
 
   return (
-    <BarChart
-      width={1000}
-      height={500}
-      data={data}
-      margin={{
-        top: 50
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="date" />
-      <YAxis domain={["auto", "auto"]} />
-      <Tooltip />
-      <Legend />
-      {createLines()}
-    </BarChart>
+    <ResponsiveContainer width={"90%"} height={500}>
+      <BarChart
+        data={data}
+        margin={{
+          top: 50
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis domain={["auto", "auto"]} width={100} />
+        <Tooltip />
+        <Legend />
+        {createLines()}
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
 

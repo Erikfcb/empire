@@ -1,6 +1,5 @@
 import "materialize-css";
 import React, { useCallback } from "react";
-import styled from "styled-components";
 import { Tabs, Tab } from "react-materialize";
 
 const TabsWrapper = ({ tabs, setTab, active }) => {
@@ -23,17 +22,13 @@ const TabsWrapper = ({ tabs, setTab, active }) => {
   );
 
   return (
-    <Container
+    <Tabs
       className="tab-demo z-depth-1"
       onChange={event => setTab(event.target.text)}
     >
       {createTabs()}
-    </Container>
+    </Tabs>
   );
 };
 
 export default TabsWrapper;
-
-const Container = styled(Tabs)`
-  width: 1000px;
-`;
